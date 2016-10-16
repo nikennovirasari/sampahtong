@@ -25,13 +25,13 @@ if($_POST){
 				if(!file_exists($file)){
 				if(move_uploaded_file($file_tmp, $file)){
 				$input_cabang = "INSERT INTO cabang (`nama_cabang`,`lat`,`long`,`gambar`,`id_kel`) VALUES ('$nama_cabang','$latitude','$longitude','$file','$id_kel')";
-				if(mysql_query($input_cabang)){
+				if(mysqli_query($con,$input_cabang)){
 				// echo "Gambar berhasil di upload ".$file;
 				header ("Refresh:0; url=index-admin.php");
 					}
 					else{
 		echo "Terdapat kesalahan pada penyimpanan gambar";
-						echo mysql_error();
+						echo mysqli_error();
 					if (file_exists($file)) unlink($file);
 					}
 				}else{
