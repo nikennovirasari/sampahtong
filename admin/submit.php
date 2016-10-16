@@ -24,14 +24,23 @@ if($_POST){
 			if(in_array($file_type, $accepted_file)){
 				if(!file_exists($file)){
 				if(move_uploaded_file($file_tmp, $file)){
+<<<<<<< HEAD
 				$input_cabang = "INSERT INTO cabang (`nama_cabang`,`lat`,`lng`,`gambar`,`id_kel`) VALUES ('$nama_cabang','$latitude','$longitude','$file','$id_kel')";
 				if(mysqli_query($con, $input_cabang)){
+=======
+				$input_cabang = "INSERT INTO cabang (`nama_cabang`,`lat`,`long`,`gambar`,`id_kel`) VALUES ('$nama_cabang','$latitude','$longitude','$file','$id_kel')";
+				if(mysqli_query($con,$input_cabang)){
+>>>>>>> origin/master
 				// echo "Gambar berhasil di upload ".$file;
 				header ("Refresh:0; url=index.php");
 					}
 					else{
 		echo "Terdapat kesalahan pada penyimpanan gambar";
+<<<<<<< HEAD
 						echo mysqli_error($con);
+=======
+						echo mysqli_error();
+>>>>>>> origin/master
 					if (file_exists($file)) unlink($file);
 					}
 				}else{
