@@ -5,7 +5,7 @@ if(isset($_SESSION['username'])){
 	include "../proses/dbinfo.php";
 }
 else{
-	header ("Refresh:0; url=../login");
+	header ("Refresh:0; url=../login/");
 	exit();
 } 
 ?>
@@ -105,14 +105,24 @@ else{
 			</div>
 			<div class="span4">
 				<div class="control-group">
-					<form method="get" action="../index.php">
-						<button type="submit" class="w3-btn w3-padding-large w3-green w3-border w3-hover-border-black">Lihat Persebaran Tong Sampah>></button>
-					</form>
+						<a href="logout.php">Logout</a><br><br>
+						<a href="../">Lihat Persebaran Tong Sampah!</a><br>
+						<a href="../all">Lihat Tabel Data</a>
+					
 				</div>
 			</div>
 
-			<form action="submit.php" method="post" enctype="multipart/form-data" name="form1"> 
+			<form action="../submit.php" method="post" enctype="multipart/form-data" name="form1"> 
 				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="input01"></label>
+						<div class="controls">
+							<button type="submit" class="w3-btn w3-padding-large w3-green w3-border w3-hover-border-black" onclick="tambah()">Submit</button>
+
+						</div>
+					</div>
+
+
 					<div class="control-group">
 						<label for="input01" class="w3-label">Nama Tong Sampah :</label>
 						<div class="controls">
@@ -134,84 +144,53 @@ else{
 						</div>
 					</div>
 
-					<div class="control-group">
-						<label for="input01" class="w3-label">Kelurahan :</label>
-						<div class="controls">
-							<?php 
-							include "config.php";
-							echo "<select name='id_kel' id='id_kel'>";
-							$tampil=mysqli_query("SELECT * FROM kelurahan ORDER BY id_kel");
-							echo "<option value='belum memilih' selected>--Pilih Kelurahan--</option>";
+					
+					
 
-							while ($w=mysql_fetch_array($tampil)) 
-							{
-								echo "<option value=$w[id_kel] selected>$w[nm_kel]</option>";
-							}
-							echo "</selected>";
-							?>						
-						</div>
-					</div>
-
-
-					<div class="control-group">
-						<label for="input01" class="w3-label">Latitude :</label>
-						<div class="controls">
-							<input type="text" class="w3-input" id="latitude" name="latitude">
-						</div>
-					</div>
-					<div class="control-group">
+					<div class="control-group w3-margin-bottom">
 
 						<label for="input01" class="w3-label">Foto Tong Sampah :</label>
 						<div class="controls">
 							<input type="file" class="w3-input" id="image" name="image">
 						</div>
 					</div>
+					
+					<div class="control-group">
+						<label for="input01" class="w3-label">Kelurahan :</label>
+						<div class="controls">
+							<?php 
+							
+							echo "<select name='id_kel' id='id_kel'>";
+							$tampil=mysqli_query($con,"SELECT * FROM kelurahan ORDER BY id_kel");
+							echo "<option value='belum memilih' selected>--Pilih Kelurahan--</option>";
+
+							while ($w=mysqli_fetch_array($tampil)) 
+							{
+								echo "<option value=$w[id_kel] selected>$w[nm_kel]</option>";
+							}
+							echo "</selected>";
+							?>						
+						</div>
+						</div>
 
 					
-
-					<div class="control-group w3-margin-bottom">
-						<label class="control-label" for="input01"></label>
-						<div class="controls">
-							<button type="submit" class="w3-btn w3-padding-large w3-green w3-border w3-hover-border-black" onclick="tambah()">Tambahkan!</button>
-
-						</div>
-					</div>
 
 				</form>
 			</div>
-			<div class="span4">
-				<div class="control-group">
-					<a href="../all">Semua Data>></a>
-					
-				</div>
-			</div>
+			
 
 
 		</div>
-		<div class="span4">
-			<div class="control-group">
-				<a href="logout.php">Logout?</a>
-
-			</div>
-		</div>
-
+	
+<div class="w3-padding-8 w3-green w3-margin-top">
+    <div class="w3-container w3-align-left">
+      <p align="left">&copy; SMD Tong Sampah</p> 
+    </div>
 	</div>
-	<div class="w3-padding-8 w3-green w3-margin-top">
-		<div class="w3-container w3-align-left">
-			<p align="center">&copy; SMD Tong Sampah</p> 
-		</div>
-	</div>
+	
 </body>
+
+	
+	
+	
 </html>
-
-
-<?php
-error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-
-if($_GET['action'] == "remove") {
-	$id = htmlentities(mysqli_real_escape_string($_GET['id']));
-	// hapus data dari database
-	$hapus_cabang = mysqli_query("DELETE FROM `cabang` WHERE `id` = '".$id."'");
-
-
-}
