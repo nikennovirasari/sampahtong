@@ -3,6 +3,10 @@ session_start();
 if(isset($_SESSION['username'])){
 	$tes=$_SESSION['username'];
 	include "../proses/dbinfo.php";
+	$id = htmlentities(mysqli_real_escape_string($con,$_GET['id']));
+	$query= "SELECT * FROM cabang WHERE id = $id";
+	$result = mysqli_query($con, $query);
+	$r=mysqli_fetch_array($result);
 }
 else{
 	header ("Refresh:0; url=../login/");
@@ -43,7 +47,7 @@ else{
 
 		function peta_awal(){
 		// posisi default peta saat diload
-		var lokasibaru = new google.maps.LatLng(-0.494823, 117.143615);
+		var lokasibaru = new google.maps.LatLng(<?php echo $r['lat'] ?>,<?php echo $r['lng'] ?>);
 		var petaoption = {
 			zoom: 13,
 			center: lokasibaru,
@@ -95,7 +99,11 @@ else{
 </script> 
 </head>
 <body onload="peta_awal()" class="w3-light-grey">
-	<?php include '../header.php'; ?>
+	<?php 
+	include '../header.php'; 
+	
+	?>
+	
 	<div class="w3-container">
 		<div class="row">
 			<div class="span8">
@@ -112,12 +120,12 @@ else{
 				</div>
 			</div>
 
-			<form action="submit.php" method="post" enctype="multipart/form-data" name="form1"> 
+			<form action="edit.php?id=<?php echo $r["id"]; ?>" method="post" enctype="multipart/form-data" name="form1"> 
 				<div class="span4">
 					<div class="control-group">
 						<label class="control-label" for="input01"></label>
 						<div class="controls">
-							<button type="submit" class="w3-btn w3-padding-large w3-green w3-border w3-hover-border-black" onclick="tambah()">Submit</button>
+							<button type="submit" class="w3-btn w3-padding-large w3-green w3-border w3-hover-border-black">Update</button>
 
 						</div>
 					</div>
@@ -126,24 +134,23 @@ else{
 					<div class="control-group">
 						<label for="input01" class="w3-label">Nama Tong Sampah :</label>
 						<div class="controls">
-							<input type="text" class="w3-input" id="nama_cabang" name="nama_cabang" rel="popover" data-content="Masukkan nama cabang." data-original-title="Cabang">
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label for="input01" class="w3-label">Longitude :</label>
-						<div class="controls">
-							<input type="text" class="w3-input" id="longitude" name="longitude" >
+							<input type="text" class="w3-input" id="nama_cabang" name="nama_cabang" rel="popover" data-content="Masukkan nama cabang." data-original-title="Cabang" value="<?php echo $r["nama_cabang"]; ?>">
 						</div>
 					</div>
 
 					<div class="control-group">
 						<label for="input01" class="w3-label">Latitude :</label>
 						<div class="controls">
-							<input type="text" class="w3-input" id="latitude" name="latitude">
+							<input type="text" class="w3-input" id="latitude" name="latitude" value="<?php echo $r["lat"]; ?>">
 						</div>
 					</div>
 
+					<div class="control-group">
+						<label for="input01" class="w3-label">Longitude :</label>
+						<div class="controls">
+							<input type="text" class="w3-input" id="longitude" name="longitude" value="<?php echo $r["lng"]; ?>">
+						</div>
+					</div>
 					
 					
 
@@ -162,13 +169,16 @@ else{
 							
 							echo "<select name='id_kel' id='id_kel'>";
 							$tampil=mysqli_query($con,"SELECT * FROM kelurahan ORDER BY id_kel");
-							echo "<option value='belum memilih' selected>--Pilih Kelurahan--</option>";
+							echo "<option value='belum memilih' >--Pilih Kelurahan--</option>";
 
 							while ($w=mysqli_fetch_array($tampil)) 
 							{
-								echo "<option value=$w[id_kel] selected>$w[nm_kel]</option>";
+							?>
+								<option value="<?php echo $w["id_kel"]; ?>" <?php if ($w["id_kel"] == $r["id_kel"])  {echo 'selected="selected"';} ?>> 
+									<?php echo $w["nm_kel"] ?> 
+								</option>
+							<?php 
 							}
-							echo "</selected>";
 							?>						
 						</div>
 						</div>

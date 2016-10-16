@@ -2,6 +2,8 @@
 session_start();
 include '../proses/checker.php';
 include '../proses/dbinfo.php';
+$id = htmlentities(mysqli_real_escape_string($con,$_GET['id']));
+// var_dump($id);
 if($_POST){
 	$nama_cabang	= isset($_POST['nama_cabang'])?$_POST['nama_cabang']:null;
 	$longitude		= isset($_POST['longitude'])?$_POST['longitude']:null;
@@ -24,11 +26,12 @@ if($_POST){
 			if(in_array($file_type, $accepted_file)){
 				if(!file_exists($file)){
 				if(move_uploaded_file($file_tmp, $file)){
-				$input_cabang = "INSERT INTO cabang (`nama_cabang`,`lat`,`lng`,`gambar`,`id_kel`) VALUES ('$nama_cabang','$latitude','$longitude','$file','$id_kel')";
-				if(mysqli_query($con, $input_cabang)){
+				$input_cabang = "UPDATE cabang SET nama_cabang='$nama_cabang', lat='$latitude', lng='$longitude', gambar='$file', id_kel='$id_kel' WHERE id='$id'";
+				if(mysqli_query($con,$input_cabang)){
 				// echo "Gambar berhasil di upload ".$file;
 				header ("Refresh:0; url=index.php");
 					}
+
 					else{
 		echo "Terdapat kesalahan pada penyimpanan gambar";
 						echo mysqli_error($con);

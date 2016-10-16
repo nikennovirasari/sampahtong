@@ -29,7 +29,7 @@ while ($row = @mysqli_fetch_assoc($result)){
   echo '<marker ';
   echo 'name="' . parseToXML($row['nama_cabang']) . '" ';
   echo 'lat="' . $row['lat'] . '" ';
-  echo 'lng="' . $row['long'] . '" ';
+  echo 'lng="' . $row['lng'] . '" ';
   echo 'img="' . parseToXML($row['gambar']) . '" ';
   // echo"<img src=$hasil[gambar] width=100 height=100>";
   echo '/>';

@@ -48,9 +48,9 @@
 				<?php
 
       // mengambil data dari database
-				$lokasi = mysqli_query($con,"select * from `cabang`");
+				$lokasi = mysqli_query($con,"select * from cabang join kelurahan on (cabang.id_kel=kelurahan.id_kel)");
 				if($lokasi === FALSE) { 
-          die(mysqli_error()); // TODO: better error handling
+          die(mysqli_error($con)); // TODO: better error handling
       }
       ?>
       
@@ -62,6 +62,7 @@
       			<td><strong>Longitude</strong></td>
       			<td><strong>Foto</strong></td>
       			<td><strong>Kelurahan</strong></td>
+            <td><strong>Edit</strong></td>
       			<td><strong>Hapus</strong></td>
       		</tr>
       	</thead>
@@ -72,15 +73,17 @@
       		<br>    
       		<tr>
 
-      			<td><?php echo "<a href=\"javascript:setpeta(".$l['lat'].",".$l['long'].",".$l['id'].")\">".$l['nama_cabang']."</a>"?></td>
-      			<td><?php echo "<a href=\"javascript:setpeta(".$l['lat'].",".$l['long'].",".$l['id'].")\">".$l['lat']."</a>"?></td>
-      			<td><?php echo "<a href=\"javascript:setpeta(".$l['lat'].",".$l['long'].",".$l['id'].")\">".$l['long']."</a>"?></td>
-      			<td><?php echo "<a href=\"javascript:setpeta(".$l['lat'].",".$l['long'].",".$l['id'].")\">".$l['gambar']."</a>"?></td>
-      			<td><?php echo "<a href=\"javascript:setpeta(".$l['lat'].",".$l['long'].",".$l['id'].")\">".$l['id_kel']."</a>"?></td>
-      			<td><?php
-      				echo "<a href='../all/' onclick=del(".$l['id'].")>Hapus</a>";
-      			}
-      			?></td>
+      			<td><?php echo $l['nama_cabang']?></td>
+      			<td><?php echo $l['lat']?></td>
+      			<td><?php echo $l['lng']?></td>
+      			<td><?php echo $l['gambar']?></td>
+      			<td><?php echo $l['nm_kel']?></td>
+      			<td><a href="editform.php?id=<?php echo $l['id'] ?>">Edit</a></td>
+            
+            <td><?php
+              echo "<a href='../all/' onclick=del(".$l['id'].")>Hapus</a>";
+            }
+            ?></td>
       		</tr>
       	</table>
 

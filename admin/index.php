@@ -130,12 +130,6 @@ else{
 						</div>
 					</div>
 
-					<div class="control-group">
-						<label for="input01" class="w3-label">Longitude :</label>
-						<div class="controls">
-							<input type="text" class="w3-input" id="longitude" name="longitude" >
-						</div>
-					</div>
 
 					<div class="control-group">
 						<label for="input01" class="w3-label">Latitude :</label>
@@ -144,6 +138,12 @@ else{
 						</div>
 					</div>
 
+					<div class="control-group">
+						<label for="input01" class="w3-label">Longitude :</label>
+						<div class="controls">
+							<input type="text" class="w3-input" id="longitude" name="longitude" >
+						</div>
+					</div>
 					
 					
 
