@@ -1,6 +1,6 @@
 <?php
 
-require("proses/dbinfo.php");
+include 'proses/dbinfo.php';
 
 function parseToXML($htmlStr)
 {
@@ -14,18 +14,17 @@ return $xmlStr;
 
 // Select all the rows in the markers table
 $query = "SELECT * FROM cabang ";
-$result = mysql_query($query);
+$result = mysqli_query($con,$query);
 if (!$result) {
-  die('Invalid query: ' . mysql_error());
+  die('Invalid query: ' . mysqli_error());
 }
-
 header("Content-type: text/xml");
 
 // Start XML file, echo parent node
 echo '<markers>';
 
 // Iterate through the rows, printing XML nodes for each
-while ($row = @mysql_fetch_assoc($result)){
+while ($row = @mysqli_fetch_assoc($result)){
   // ADD TO XML DOCUMENT NODE
   echo '<marker ';
   echo 'name="' . parseToXML($row['nama_cabang']) . '" ';
@@ -35,7 +34,6 @@ while ($row = @mysql_fetch_assoc($result)){
   // echo"<img src=$hasil[gambar] width=100 height=100>";
   echo '/>';
 }
-
 // End XML file
 echo '</markers>';
 ?>

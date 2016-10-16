@@ -78,7 +78,7 @@
       			<td><?php echo "<a href=\"javascript:setpeta(".$l['lat'].",".$l['long'].",".$l['id'].")\">".$l['gambar']."</a>"?></td>
       			<td><?php echo "<a href=\"javascript:setpeta(".$l['lat'].",".$l['long'].",".$l['id'].")\">".$l['id_kel']."</a>"?></td>
       			<td><?php
-      				echo "<a href='?action=remove&id=".$l['id']."' onclick=del(".$l['id'].")>Hapus</a>";
+      				echo "<a href='../all/' onclick=del(".$l['id'].")>Hapus</a>";
       			}
       			?></td>
       		</tr>

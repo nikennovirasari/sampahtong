@@ -112,7 +112,7 @@ else{
 				</div>
 			</div>
 
-			<form action="../submit.php" method="post" enctype="multipart/form-data" name="form1"> 
+			<form action="submit.php" method="post" enctype="multipart/form-data" name="form1"> 
 				<div class="span4">
 					<div class="control-group">
 						<label class="control-label" for="input01"></label>

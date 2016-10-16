@@ -8,7 +8,7 @@ if($_POST){
 	$latitude		= isset($_POST['latitude'])?$_POST['latitude']:null;
 	$file_upload	= isset($_FILES['image'])?$_FILES['image']:null;
 	$id_kel			= isset($_POST['id_kel'])?$_POST['id_kel']:null;
-	$pathfile ='gambar/';
+	$pathfile ='../gambar/';
 	$accepted_file = ['image/jpg','image/png','image/jpeg'];
 	if(!is_null($file_upload)){
 		$file_tmp = $file_upload['tmp_name'];
